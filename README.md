@@ -1,29 +1,65 @@
-1) Vamos criar/inicializar nossa aplicação react
+#  Little Form Redux
+
+Esse é um passo a passo do plantão guiado realizado na turma 06, sinta-se a vontade pra seguir apenas o passo a passo ou acompanhar o vídeo, disponível na thread de plantões especiais no canal da turma.
+
+### Resumo
+O objetivo aqui é treinar Redux, que vai ser o gerenciador dos estados da nossa aplicação. Você lembra que até agora criamos formulários e salvamos os dados apenas no state, certo? Agora vamos utilizar o Redux pra deixar essas informações acessíveis dentro de toda a nossa aplicação.
+
+O nosso fluxo será o seguinte:  
+
+ - Digitei as informações no input
+ - Salvei essas informações no state do meu componente
+ - Cliquei no botão "Enviar"
+ - Ao clicar no botão, esses dados foram guardados pra ficarem disponíveis por toda a nossa aplicação e não somente no nosso componente
+
+Ou seja, digitei meu nome e meu email na página inicial, mas quero que esse nome e esse email apareçam na página seguinte (outro componente) também. Então, salvamos essa informação com o Redux, que vai deixar esses dados disponíveis pra serem acessados em qualquer outro componente da aplicação.
+
+_Como podemos realizar esse fluxo?_
+
+Ao digitarmos no input, vamos salvar esses dados no state **do componente**.
+Assim que a pessoa usuária clicar no botão de "Enviar", disparamos uma **action**, essa **action** é uma função, que vai receber como parâmetro, o state do nosso componente e vai entregar essa informação pro **reducer**.
+
+O **reducer**, por sua vez, tem a função de atualizar a **store** (que é a responsável por guardar as informações da aplicação), ele vai verificar o tipo da **action**, vai atualizar os dados e devolver pra **store**.
+
+Fique tranquilo se você ainda tiver confuso com todas essas informações, Redux é prática em cima de prática, eu também já passei por essa fase de chamar Redux de Helldux :P\
+
+Então vamos lá e lembre-se: você tem o vídeo disponível pra te ajudar a seguir com esse passo a passo.
+
+#### 1) Crie a aplicação react
 **Se atentem pra não escrever o nome da pasta com letra maiúscula**
-Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pasta que você está, é só usar o .
+Se você for criar uma pasta nova, como você já está habituado a fazer, exemplo:
+
+`npx create-react-app nome-da-pasta`
+
+Caso você já tenha criado uma pasta, basta digitar:
 
 `npx create-react-app .`
 
-2) Vamos inicializar ver se ta funcionando
+#### 2) Inicialize a aplicação
+Por mais bobo que pareça, é importante a gente sempre inicializar pra ver se a nossa aplicação tá rodando no navegador, pra isso, digite:
 
 `npm start`
 
-3) Vamos instalar o Redux e o React-Redux
+#### 3) Instale o Redux e o React-Redux
+O Redux não é próprio do React, portanto, usamos o react-redux pra conectar os dois.
 
 `npm install redux react-redux`
 
-4) Vamos acessar nosso arquivo App.js e ver tá tudo certo
-  - Lá no App, só escrever um testeeee pra ver se tá rodando certinho
+#### 4) Acesse o arquivo App e faça alguma alteração no texto
+  
+  Escreva qualquer texto dentro do componente App pra verificar se as alterações estão aparecendo no navegador.
 
-5) Agora vamos utilizar a extensão do chrome pra saber se o redux tá com a gente
+#### 5) Configure o Redux e o Redux DevTools
 
-  - Vamos criar nossa pasta chamada store
-  - Vamos criar o arquivo index dentro dela
+ - [ ] Crie uma pasta chamada 
+ - [ ] Crie o arquivo index dentro dela
 
-  - Agora vamos criar as pastas de actions e reducers
-  - Vou colocar o nome dos arquivos como actions.js e reducers.js pra ficar mais fácil
+Lembre-se que a store vai ser responsável por armazenar os dados compartilhados da aplicação.
 
-  Então nosso diretório ficou:
+  - [ ] Criar as pastas de actions e reducers
+  - [ ] Crie um arquivo reducers.js e actions.js dentro das respectivas pastas
+
+A estrutura do nosso diretório é essa:
 
   /store
     - index.js (index da pasta store)
@@ -32,8 +68,10 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
     /reducers
       - reducers.js
 
-  - Agora vamos criar o nosso reducer, pra ver se aparece o estado inicial na ferramenta:
-  <!-- reducer/reducer.js -->
+  - [ ] Crie o reducer
+ 
+  `<!-- reducer/reducer.js -->`
+  
   ` const initialState = { `
     ` username: null, `
     ` email: null, `
@@ -52,8 +90,21 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
     ` } `
   ` } `
 
-  - Vamos no nosso index da store, importar o reducer e passar a linha do devtools pra conectar nossa aplicação com o devtools
-  <!-- store/index.js -->
+Lembre-se:  O **reducer** é uma função, ele vai receber a **action** (que tem a informação atualizada), retornando um novo state e salvando na nossa store. 
+
+_Mas como o reducer sabe que ele vai ser chamado?_
+
+A seguir vamos criar a nossa **action**, ela vai receber um `type` e um `payload` (que é a informação, nesse caso é o state do nosso componente). O **reducer** se comunica com a nossa **action** através desse `type`, olhe a estrutura de código acima e veja que "caso o type seja SET_FORM, atualize o state". A seguir você verá que, ao estruturar a nossa **action**, vamos passar o `type` pra ela também.
+
+Reforçando, não se preocupe se ainda tá confuso pra você, Redux é prática em cima de prática.
+
+Pra visualizar melhor o funcionamento do Redux, é extremamente aconselhável que você baixe a extensão do Redux DevTools no seu navegador e a seguir, vamos implementar a linha de código necessária pra que a nossa aplicação fique acessível pra extensão.
+
+  - [ ] Crie o index da store, importe o reducer
+  - [ ] Conecte a aplicação com o DevTools
+  
+  `<!-- store/index.js -->`
+ 
 ` import { createStore } from 'redux'; `
 ` import { forms } from './reducers/reducers'; `
 
@@ -77,9 +128,12 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
     ` document.getElementById('root') `
   ` );`
 
-  Beleza, vamos olhar nosso devtools... tá funcionando certinho!
-
-  6) Vamos criar nosso formulário, dentro do nosso arquivo App.js:
+ - [ ] Verifique se o DevTools está funcionando.
+ É só você abrir seu console e clicar em Redux ou clicar no ícone da extensão do DevTools no seu navegador. Se aparecer o initialState (reducers.js) é porque tá funcionando certinho.
+---
+  6) Crie o formulário dentro de App.js
+- [ ] Crie o formulário
+**ATENÇÃO:** é importante componentizar, nesse caso não fizemos a componentização pra visualizar melhor o que está acontecendo na aplicação.
      ` <label>`
        ` Nome: <br />`
         `<input type="text" value="" onChange={() => console.log('input nome')}/>`
@@ -94,7 +148,7 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
 
      ` <br />`
 
-      **Fiquem atentos que no radio button precisamos colocar o mesmo name pra que ele fique alternando**
+      **Atentem-se para que, no radio button, name seja exatamente o mesmo para que ele fique alternando**
 
       `<label>`
         `Biscoito:`
@@ -110,7 +164,7 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
 
       `<button type="button" onClick={() => console.log('aqui vai nossa action')}>Enviar</button>`
 
-7) Vamos criar nossa action, que vai acionar nosso botão:
+#### 7) Vamos criar nossa action, que vai acionar nosso botão:
 
   - No nosso arquivo actions.js, vamos criar uma... action. Ela é uma função que vamos chamar no nosso componente e que tem o tipo dela e o dado que ela vai carregar.
     Então vamos lá:
@@ -121,7 +175,7 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
   ` }); `
 
 
-8) Vamos alterar nosso app de função pra classe!
+#### 8) Altere o App.js de função para classe
 
   `class App extends React.Component {`
 
@@ -129,7 +183,7 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
     `return (`
    ` <div> ....`
 
-9) Beleza, agora vamos salvar os dados do input no state DO NOSSO COMPONENTE.
+####  9) Salve os dados do input no state do componente
   `constructor() {`
     `super();`
     `this.state = { `
@@ -139,36 +193,42 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
     `}`
   `}`
 
-10) Vamos agora atualizar nosso state com o onChange do input
+#### 10) Atualize o state com o onChange do input
 
-  - Fazemos o destructuring 
+  - [ ] Faça o destructuring do state
     `const { username, email } = this.state;`
 
-  - E nos inputs, passamos um name, um value, que vai ser o state e o setState no onChange
+  - [ ] Passe um name, um value (que será o state) e o setState(que atualiza o state) no onChange dos inputs
     `<input type="text" name="nome" value={username} onChange={(e) => this.setState({ username: e.target.value })}/>`
 
-  - Vamos colocar um console.log antes do return pra saber se tá pegando todos os states
+  - [ ] Coloque um console.log antes do return pra saber se os states estão aparecendo
     `console.log(this.state)`
 
-11) Agora vamos importar o connect, pra nos conectarmos com o Provider e avisar a store que nosso componente mudou:
+#### 11) Importe o connect
+O connect serve pra nos conectarmos com o Provider e avisar a store que nosso componente mudou
+
   `import { connect } from 'react-redux';`
 
-  - Vamos trocar nosso export default do App para o connect:
+  - [ ] Troque o export default do App para o connect
    `export default connect(`
       `null,`
       `null`
     `)(App);`
 
-  - Vamos importar nossa action:
+  - [ ] Importe a action
   `import { setForms } from './store/actions/actions';`
 
-  - Vamos agora declarar nosso mapStateToProps, que vai ler nossa store e o mapDispatchToProps que vai escrever na nossa store.
-    No mapDispatchToProps, pegamos o nome do nosso reducer e passamos o state
+  - [ ] Declare o mapStateToProps
+ O mapStateToProps (lê a store) que vai ler nossa store e vai deixar os dados acessíveis através de props
+O mapDispatchToProps (escreve na store) que vai escrever na nossa store, ou seja, vamos enviar a informação.
+- [ ] Pegue o state da store através do mapDispatchToProps e receba como parâmetro o state (esse state é o da store)
   `const mapStateToProps = (state) => ({`
     `forms: state`
   `})`
 
+
   No mapDispatchToProps, pegamos a função da action
+  - [ ] Passe a action a ser enviada para o reducer
   `const mapDispatchToProps = (dispatch) => ({`
     `setForms: (data) => dispatch(setForms(data))`
   `})`
@@ -178,20 +238,20 @@ Ps: se você for criar uma pasta nova, escreva o nome da pasta, caso seja na pas
     `mapDispatchToProps`
   `)(App);`
 
-  - Vamos colocar um console.log pra saber se estamos recebendo alguma informação
-  `console.log(this.props)` -> recebemos todas as props (se atente que nossa função/action setForms também vem como props...)
-  `console.log('testando mapState', this.props.forms)` -> recebemos apenas o forms, que é nossos dados de username, email e preferencia.
+Lembre-se: O setForms: pode ter qualquer nome, já o setForms de dentro da função do dispatch dispatch(setForms(data)) é a action que você importou. O parâmetro data será o state do componente, que vai ser carregado até o reducer através dessa action.
 
-  Opa! Tá vindo como undefined... É porque ainda não colocamos nenhum dado. Vamos lá!
+  - [ ] Coloque um console.log pra saber você está recebendo alguma informação
+  
+  `console.log(this.props)`: Recebemos todas as props (se atente que nossa função/action setForms também vem como props e pra acessá-la precisamos usar o `this.props.setForm(stateDoComponente))`
+  
+ `console.log('testando mapState', this.props.forms)`: recebemos apenas o forms, que é nossos dados de username, email e preferencia.
 
-12) Vamos chamar nossa action (setForms) no clique do botão, ela será responsável por pegar o state do componente e enviar pra store.
+Opa! Tá vindo como undefined... É porque ainda não colocamos nenhum dado. Vamos lá!
+
+#### 12) Chame a action (setForms) no clique do botão
+Essa action será responsável por pegar o state do componente e enviar pra store.
 **Não se esqueça de colocar o this.props**
 
 `<button type="button" onClick={() => this.props.setForms(this.state)}>Enviar</button>`
 
-Pronto, se olharmos no nosso devtools, estamos atualizando a nossa store apenas quando clicamos no botão de enviar!
-
-
-
-
-
+Pronto, e agora, se olharmos no nosso DevTools, estamos atualizando a nossa store ao clicar no botão de enviar!
