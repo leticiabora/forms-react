@@ -130,7 +130,7 @@ Pra visualizar melhor o funcionamento do Redux, é extremamente aconselhável qu
 
  - [ ] Verifique se o DevTools está funcionando.
  É só você abrir seu console e clicar em Redux ou clicar no ícone da extensão do DevTools no seu navegador. Se aparecer o initialState (reducers.js) é porque tá funcionando certinho.
----
+ 
   6) Crie o formulário dentro de App.js
 - [ ] Crie o formulário
 **ATENÇÃO:** é importante componentizar, nesse caso não fizemos a componentização pra visualizar melhor o que está acontecendo na aplicação.
@@ -205,7 +205,7 @@ Pra visualizar melhor o funcionamento do Redux, é extremamente aconselhável qu
     `console.log(this.state)`
 
 #### 11) Importe o connect
-O connect serve pra nos conectarmos com o Provider e avisar a store que nosso componente mudou
+O connect serve pra nos conectarmos com o Provider e avisar a store que o state do nosso componente sofreu alteração
 
   `import { connect } from 'react-redux';`
 
